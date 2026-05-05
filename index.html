@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saksham Malik | Portfolio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --red: #b00000;
+      --darkred: #750000;
+      --text: #1a1a1a;
+      --lightgray: #f3f3f3;
+    }
+
+    body {
+      background: white;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* =================== PREMIUM ANIMATED BACKGROUND =================== */
+    .animated-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -10;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* GRADIENT ANIMATION */
+    .animated-bg::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: linear-gradient(
+        120deg,
+        rgba(176, 0, 0, 0.12),
+        rgba(0, 0, 0, 0.05),
+        rgba(176, 0, 0, 0.10)
+      );
+      animation: gradientMove 10s ease-in-out infinite alternate;
+      filter: blur(40px);
+    }
+
+    @keyframes gradientMove {
+      0% {
+        transform: translateX(-80px) translateY(-80px);
+      }
+      100% {
+        transform: translateX(80px) translateY(80px);
+      }
+    }
+
+    /* PARTICLES */
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(176, 0, 0, 0.25);
+      border-radius: 50%;
+      animation: particleFloat 12s linear infinite;
+      box-shadow: 0 0 10px rgba(176, 0, 0, 0.3);
+      opacity: 0.8;
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(0px) translateX(0px) scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-1200px) translateX(80px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* BUBBLES */
+    .bubble {
+      position: absolute;
+      bottom: -120px;
+      background: rgba(176, 0, 0, 0.06);
+      border: 2px solid rgba(176, 0, 0, 0.15);
+      border-radius: 50%;
+      animation: bubbleUp 14s linear infinite;
+      box-shadow: 0 0 12px rgba(176, 0, 0, 0.15);
+    }
+
+    @keyframes bubbleUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-1400px) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* ================= NAVBAR ================= */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: var(--red);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--red);
+    }
+
+    /* MAIN WRAPPER */
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    /* HERO */
+    #home {
+      padding-top: 120px;
+      padding-bottom: 60px;
+    }
+
+    .hero-box {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    /* PROFILE PHOTO CIRCLE */
+    .profile-pic {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 6px solid var(--red);
+      overflow: hidden;
+      margin-bottom: 15px;
+      background: #f3f3f3;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* NAME LEFT TO RIGHT ANIMATION */
+    .name-animation {
+      font-size: 60px;
+      font-weight: 900;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      animation: nameSlide 1.5s ease forwards;
+    }
+
+    @keyframes nameSlide {
+      0% {
+        opacity: 0;
+        transform: translateX(-80px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0px);
+      }
+    }
+
+    /* UNDERLINE SWIPE */
+    .name-animation::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 100%;
+      height: 5px;
+      background: var(--red);
+      border-radius: 5px;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: underlineSwipe 1.8s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes underlineSwipe {
+      0% {
+        transform: scaleX(0);
+      }
+      100% {
+        transform: scaleX(1);
+      }
+    }
+
+    .subtitle {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 15px;
+    }
+
+    /* BIGGER PARAGRAPHS */
+    .desc {
+      font-size: 28px;
+      line-height: 1.8;
+      max-width: 800px;
+      color: #444;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 28px;
+      background: var(--red);
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+      width: fit-content;
+    }
+
+    .btn:hover {
+      background: black;
+      transform: scale(1.03);
+    }
+
+    /* BIG SECTION HEADINGS */
+    h2 {
+      font-size: 50px !important;
+      margin-bottom: 15px;
+      color: var(--red);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: 0.9s ease;
+    }
+
+    h2.show-heading {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .section-text {
+      font-size: 27px;
+      color: #444;
+      line-height: 1.8;
+      max-width: 900px;
+    }
+
+    /* SKILLS */
+    .skills-box {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .skill {
+      padding: 12px 20px;
+      background: var(--lightgray);
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: bold;
+      border-left: 6px solid var(--red);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: 0.6s ease;
+    }
+
+    .skill.show-skill {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      background: var(--lightgray);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 6px solid var(--red);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.8s ease;
+    }
+
+    .project-card.show-project {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      background: #ffeaea;
+      transform: translateY(-5px);
+    }
+
+    .project-card h3 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: black;
+    }
+
+    .project-card p {
+      font-size: 22px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      margin-top: 20px;
+      background: var(--lightgray);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 6px solid var(--red);
+      max-width: 700px;
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: 0.9s ease;
+    }
+
+    .contact-box.show-contact {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .contact-box p {
+      font-size: 24px;
+      line-height: 2;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .contact-box span {
+      color: var(--red);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f8f8f8;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 30px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .name-animation {
+        font-size: 40px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h2 {
+        font-size: 38px !important;
+      }
+
+      .desc {
+        font-size: 22px;
+      }
+
+      .section-text {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =================== PREMIUM ANIMATED BACKGROUND =================== -->
+  <div class="animated-bg">
+
+    <!-- PARTICLES -->
+    <span class="particle" style="left:5%; animation-delay:0s;"></span>
+    <span class="particle" style="left:15%; animation-delay:2s;"></span>
+    <span class="particle" style="left:25%; animation-delay:4s;"></span>
+    <span class="particle" style="left:35%; animation-delay:1s;"></span>
+    <span class="particle" style="left:45%; animation-delay:3s;"></span>
+    <span class="particle" style="left:55%; animation-delay:5s;"></span>
+    <span class="particle" style="left:65%; animation-delay:2s;"></span>
+    <span class="particle" style="left:75%; animation-delay:4s;"></span>
+    <span class="particle" style="left:85%; animation-delay:1s;"></span>
+    <span class="particle" style="left:95%; animation-delay:3s;"></span>
+
+    <!-- BUBBLES -->
+    <span class="bubble" style="width:40px; height:40px; left:10%; animation-duration:9s;"></span>
+    <span class="bubble" style="width:20px; height:20px; left:20%; animation-duration:6s; animation-delay:2s;"></span>
+    <span class="bubble" style="width:60px; height:60px; left:30%; animation-duration:12s; animation-delay:4s;"></span>
+    <span class="bubble" style="width:25px; height:25px; left:40%; animation-duration:7s; animation-delay:1s;"></span>
+    <span class="bubble" style="width:50px; height:50px; left:50%; animation-duration:10s; animation-delay:3s;"></span>
+    <span class="bubble" style="width:18px; height:18px; left:60%; animation-duration:5s; animation-delay:5s;"></span>
+    <span class="bubble" style="width:70px; height:70px; left:70%; animation-duration:14s; animation-delay:2s;"></span>
+    <span class="bubble" style="width:30px; height:30px; left:80%; animation-duration:8s; animation-delay:4s;"></span>
+    <span class="bubble" style="width:45px; height:45px; left:90%; animation-duration:9s; animation-delay:6s;"></span>
+    <span class="bubble" style="width:22px; height:22px; left:15%; animation-duration:7s; animation-delay:3s;"></span>
+    <span class="bubble" style="width:55px; height:55px; left:25%; animation-duration:13s; animation-delay:2s;"></span>
+    <span class="bubble" style="width:35px; height:35px; left:35%; animation-duration:8s; animation-delay:1s;"></span>
+    <span class="bubble" style="width:15px; height:15px; left:45%; animation-duration:6s; animation-delay:5s;"></span>
+    <span class="bubble" style="width:65px; height:65px; left:55%; animation-duration:15s; animation-delay:4s;"></span>
+    <span class="bubble" style="width:28px; height:28px; left:65%; animation-duration:7s; animation-delay:2s;"></span>
+    <span class="bubble" style="width:75px; height:75px; left:75%; animation-duration:16s; animation-delay:3s;"></span>
+    <span class="bubble" style="width:25px; height:25px; left:85%; animation-duration:8s; animation-delay:6s;"></span>
+    <span class="bubble" style="width:40px; height:40px; left:95%; animation-duration:11s; animation-delay:4s;"></span>
+    <span class="bubble" style="width:18px; height:18px; left:5%; animation-duration:6s; animation-delay:1s;"></span>
+    <span class="bubble" style="width:58px; height:58px; left:88%; animation-duration:14s; animation-delay:5s;"></span>
+
+  </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">Saksham Malik</div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-box">
+
+        <!-- PROFILE PHOTO -->
+        <div class="profile-pic">
+          <img src="saksham.jpg" alt="Saksham Malik">
+        </div>
+
+        <div class="name-animation">SAKSHAM MALIK</div>
+        <div class="subtitle">BCA Student | Web Developer | Programmer</div>
+
+        <p class="desc">
+          I am Saksham Malik, a BCA student passionate about programming and web development.
+          I love building websites, learning new technologies, and improving my coding skills daily.
+        </p>
+
+        <a href="#contact" class="btn">Contact Me</a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p class="section-text">
+        Hello! My name is <b>Saksham Malik</b>. I am currently pursuing BCA and I am interested in
+        web development and software programming. My goal is to become a professional developer
+        and build real-world projects.
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <p class="section-text">
+        These are the technologies and skills I am learning and improving.
+      </p>
+
+      <div class="skills-box">
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">Python</div>
+        <div class="skill">C++</div>
+        <div class="skill">Web Designing</div>
+        <div class="skill">Problem Solving</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <p class="section-text">
+        Some of my basic projects and practice work.
+      </p>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <h3>Portfolio Website</h3>
+          <p>A clean and responsive personal portfolio website made using HTML and CSS.</p>
+        </div>
+
+        <div class="project-card">
+          <h3>Student Data Program</h3>
+          <p>A basic program idea using logic to manage student records and details.</p>
+        </div>
+
+        <div class="project-card">
+          <h3>Form Validation Page</h3>
+          <p>A simple HTML form with validation and styling for practice.</p>
+        </div>
+
+        <div class="project-card">
+          <h3>Linux Termux Practice</h3>
+          <p>Learned Linux commands like file management, permissions, and system utilities in Termux.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p class="section-text">
+        You can contact me using the details below.
+      </p>
+
+      <div class="contact-box">
+        <p><span>Phone:</span> 9009246051</p>
+        <p><span>Email:</span> sakshammalik9009246061@gmail.com</p>
+        <p><span>Instagram:</span> sa_ksham9855</p>
+      </div>
+
+      <a href="#home" class="btn" style="margin-top:20px;">Back to Top</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Made with love by Saksham Malik 
+  </footer>
+
+  <!-- JAVASCRIPT FOR SECTION ANIMATIONS -->
+  <script>
+    const headings = document.querySelectorAll("h2");
+    const skills = document.querySelectorAll(".skill");
+    const projects = document.querySelectorAll(".project-card");
+    const contactBox = document.querySelector(".contact-box");
+
+    function showAnimations() {
+      headings.forEach((head) => {
+        let pos = head.getBoundingClientRect().top;
+        if (pos < window.innerHeight - 120) {
+          head.classList.add("show-heading");
+        }
+      });
+
+      skills.forEach((skill) => {
+        let pos = skill.getBoundingClientRect().top;
+        if (pos < window.innerHeight - 80) {
+          skill.classList.add("show-skill");
+        }
+      });
+
+      projects.forEach((project) => {
+        let pos = project.getBoundingClientRect().top;
+        if (pos < window.innerHeight - 100) {
+          project.classList.add("show-project");
+        }
+      });
+
+      let contactPos = contactBox.getBoundingClientRect().top;
+      if (contactPos < window.innerHeight - 100) {
+        contactBox.classList.add("show-contact");
+      }
+    }
+
+    window.addEventListener("load", showAnimations);
+    window.addEventListener("scroll", showAnimations);
+  </script>
+
+</body>
+</html>
